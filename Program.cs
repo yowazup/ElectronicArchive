@@ -4,7 +4,7 @@ namespace ElectronicArchive
 {
     public class Archive
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var inboxPathDocuments = new DirectoryInfo("D:/Finance model/International/Accounting/Sorting hub/Documents");
             DirectoryCheck(inboxPathDocuments);
@@ -36,21 +36,6 @@ namespace ElectronicArchive
                         Console.WriteLine();
                     }
                 }
-            }
-        }
-
-        static void DirectoryCheck(DirectoryInfo folderPath)
-        {
-            if (folderPath.Exists) // Проверим, что директория существует
-            {
-                Console.WriteLine("Папка {0} найдена. Перехожу к работе с файлами.", folderPath);
-                Console.WriteLine();
-            }
-            else
-            {
-                folderPath.Create();
-                Console.WriteLine("Папка не найдена. Создал новую: {0}. Перехожу к работе с файлами.", folderPath);
-                Console.WriteLine();
             }
         }
 
@@ -148,6 +133,21 @@ namespace ElectronicArchive
                 {
 
                 }
+            }
+        }
+
+        static void DirectoryCheck(DirectoryInfo folderPath)
+        {
+            if (folderPath.Exists) // Проверим, что директория существует
+            {
+                Console.WriteLine("Папка {0} найдена. Перехожу к работе с файлами.", folderPath);
+                Console.WriteLine();
+            }
+            else
+            {
+                folderPath.Create();
+                Console.WriteLine("Папка не найдена. Создал новую: {0}. Перехожу к работе с файлами.", folderPath);
+                Console.WriteLine();
             }
         }
     }
