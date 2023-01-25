@@ -1,0 +1,15 @@
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\bin\Debug\net6.0\ElectronicArchive.exe
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\bin\Debug\net6.0\ElectronicArchive.deps.json
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\bin\Debug\net6.0\ElectronicArchive.runtimeconfig.json
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\bin\Debug\net6.0\ElectronicArchive.dll
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\bin\Debug\net6.0\ElectronicArchive.pdb
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.csproj.AssemblyReference.cache
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.AssemblyInfoInputs.cache
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.AssemblyInfo.cs
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.csproj.CoreCompileInputs.cache
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.dll
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\refint\ElectronicArchive.dll
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.pdb
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ElectronicArchive.genruntimeconfig.cache
+D:\Repositories\FirstApplication.ConsoleApp\ElectronicArchive\obj\Debug\net6.0\ref\ElectronicArchive.dll

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Xmctss8e/KJJgfAORih1gh4VxaA6Hu2qQtEDI9RVJgdNWC0NuKsBFQn3F6nQwnn+4WHDNBxSdx0gL5jzmWxVPA==",
+  "success": true,
+  "projectFilePath": "D:\\Repositories\\FirstApplication.ConsoleApp\\ElectronicArchive\\ElectronicArchive.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.12\\microsoft.netcore.app.host.win-x64.6.0.12.nupkg.sha512",
+    "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.12\\microsoft.aspnetcore.app.ref.6.0.12.nupkg.sha512",
+    "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.12\\microsoft.windowsdesktop.app.ref.6.0.12.nupkg.sha512",
+    "C:\\Users\\Nikita\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.12\\microsoft.netcore.app.ref.6.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}

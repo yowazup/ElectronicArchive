@@ -1,20 +1,31 @@
-﻿using File = System.IO.File;
+﻿using ElectronicArchive.Workers;
+
+/// надо еще 2 метода - проверять все лив файлы, доставать интересующий сет документов
 
 namespace ElectronicArchive
 {
     public class Archive
     {
-        static void Main()
+        DirectoryInfo inboxPathDocuments = new DirectoryInfo("D:/Finance model/International/Accounting/Sorting hub/Documents");
+        DirectoryInfo inboxPathAgreements = new DirectoryInfo("D:/Finance model/International/Accounting/Sorting hub/Agreements");
+        DirectoryInfo archivePath = new DirectoryInfo("D:/Finance model/International/Accounting/Accounting documents");
+        FileInfo allAgreements = new FileInfo("D:/Finance model/International/Accounting/Sorting hub/1. All agreements list.txt");
+        FileInfo allInvoices = new FileInfo("D:/Finance model/International/Accounting/Sorting hub/2. All invoices list.txt");
+        FileInfo outstandingAgreements = new FileInfo("D:/Finance model/International/Accounting/Sorting hub/3. Agreements outstanding.txt");
+        FileInfo outstandingInvoices = new FileInfo("D:/Finance model/International/Accounting/Sorting hub/4. Invoices outstanding.txt");
+        FileInfo notcorrectFiles = new FileInfo("D:/Finance model/International/Accounting/Sorting hub/5. Not correct files.txt");
+
+        static void Main(DirectoryInfo inboxPathDocuments, DirectoryInfo inboxPathAgreements, DirectoryInfo archivePath)
         {
-            var inboxPathDocuments = new DirectoryInfo("D:/Finance model/International/Accounting/Sorting hub/Documents");
-            DirectoryCheck(inboxPathDocuments);
+            
+            // ПРОВЕРЯЕМ ВСЕ ДИРЕКТОРИИ И ФАЙЛЫ
+            Checker.DirectoryCheck(inboxPathDocuments);
+            Checker.DirectoryCheck(inboxPathAgreements);
+            Checker.DirectoryCheck(archivePath);
 
-            var inboxPathAgreements = new DirectoryInfo("D:/Finance model/International/Accounting/Sorting hub/Agreements");
-            DirectoryCheck(inboxPathAgreements);
 
-            var archivePath = new DirectoryInfo("D:/Finance model/International/Accounting/Accounting documents");
-            DirectoryCheck(archivePath);
-            ArchiveClean(archivePath.FullName);
+            // ЧИСТИМ АРХИВ ОТ ПУСТЫХ ПАПОК
+            Checker.ArchiveClean(archivePath.FullName);
 
             while (true)
             {
@@ -23,7 +34,7 @@ namespace ElectronicArchive
                 {
                     foreach (var file in inboxPathDocuments.GetFiles())
                     {
-                        InvoiceMove(file, inboxPathDocuments, archivePath);
+                        Uploader.InvoiceMove(file, inboxPathDocuments, archivePath);
                         Console.WriteLine();
                     }
                 }
@@ -32,122 +43,10 @@ namespace ElectronicArchive
                 {
                     foreach (var file in inboxPathAgreements.GetFiles())
                     {
-                        AgreementMove(file, inboxPathAgreements, archivePath);
+                        Uploader.AgreementMove(file, inboxPathAgreements, archivePath);
                         Console.WriteLine();
                     }
                 }
-            }
-        }
-
-        static void InvoiceMove(FileInfo file, DirectoryInfo inboxPathDocuments, DirectoryInfo archivePath)
-        {
-            try
-            {
-                // Определяем атрибуты файла
-                string[] fileData = Path.GetFileNameWithoutExtension($"{inboxPathDocuments}/{file.Name}").Split('-');
-
-                // записываем атрибуты в класс документ
-                var document = new Document(fileData[0], fileData[1], int.Parse(fileData[2]), int.Parse(fileData[3]), int.Parse(fileData[4]), int.Parse(fileData[5]), fileData[6]);
-
-                // объявляем директорию для нового файла
-                var folderPathNew = new DirectoryInfo($"{archivePath}/{document.Account}/{document.Counterparty}/{document.Year}");
-                DirectoryCheck(folderPathNew);
-
-                // объявляем старый и новый путь к файлу
-                var filePathNew = $"{folderPathNew}/{file.Name}";
-                var filePathInbox = $"{inboxPathDocuments}/{file.Name}";
-
-                if (File.Exists(filePathNew)) // Проверим, что файл существует в архиве
-                {
-                    File.Delete(file.FullName);
-                    Console.WriteLine("Файл {0} уже есть в архиве. Удалил из инбокса и все.", file.Name);
-                }
-                else
-                {
-                    File.Copy(file.FullName, filePathNew, true);
-                    File.Delete(filePathInbox);
-                    Console.WriteLine("Файл новый. Перенес его в архив - можно найти тут: {0}.", filePathNew);
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Файл уже есть в архиве или передан файл {0} не поддерживаемого формата: Счет-Контрагент-Год/Месяц/День-Сумма-Валюта. Попробуйте с правильным файлом.", file.Name);
-                Console.WriteLine("Этот файл удаляю и жду успешной попытки.");
-                file.Delete();
-            }
-        }
-
-        static void AgreementMove(FileInfo file, DirectoryInfo inboxPathAgreements, DirectoryInfo archivePath)
-        {
-            try
-            {
-                // Определяем атрибуты файла
-                string[] fileData = Path.GetFileNameWithoutExtension($"{inboxPathAgreements}/{file.Name}").Split('-');
-
-                // записываем атрибуты в класс документ
-                var document = new Agreement(fileData[0], fileData[1], fileData[2]);
-
-                // объявляем директорию для нового файла
-                var folderPathNew = new DirectoryInfo($"{archivePath}/{document.Account}/{document.Counterparty}");
-                DirectoryCheck(folderPathNew);
-
-                // объявляем старый и новый путь к файлу
-                var filePathNew = $"{folderPathNew}/{file.Name}";
-                var filePathInbox = $"{inboxPathAgreements}/{file.Name}";
-
-                if (File.Exists(filePathNew)) // Проверим, что файл существует в архиве
-                {
-                    File.Delete(file.FullName);
-                    Console.WriteLine("Файл {0} уже есть в архиве. Удалил из инбокса и все.", file.Name);
-                }
-                else
-                {
-                    File.Copy(file.FullName, filePathNew, true);
-                    File.Delete(filePathInbox);
-                    Console.WriteLine("Файл новый. Перенес его в архив - можно найти тут: {0}.", filePathNew);
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Файл уже есть в архиве или передан файл {0} не поддерживаемого формата: Счет-Контрагент-Предмет договора. Попробуйте с правильным файлом.", file.Name);
-                Console.WriteLine("Этот файл удаляю и жду успешной попытки.");
-                file.Delete();
-            }
-        }
-
-        static void ArchiveClean(string archivePath)
-        {
-            string[] folders = Directory.GetDirectories(archivePath);  // Получим все содержащиеся папки
-
-            foreach (string folder in folders)  // Удаление пустых папок
-            {
-                ArchiveClean(folder);
-
-                try
-                {
-                    DirectoryInfo Folder = new DirectoryInfo(folder);
-                    Folder.Delete();
-                    Console.WriteLine("Папка {0} пустая, поэтому ее удалили.", folder);
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-        }
-
-        static void DirectoryCheck(DirectoryInfo folderPath)
-        {
-            if (folderPath.Exists) // Проверим, что директория существует
-            {
-                Console.WriteLine("Папка {0} найдена. Перехожу к работе с файлами.", folderPath);
-                Console.WriteLine();
-            }
-            else
-            {
-                folderPath.Create();
-                Console.WriteLine("Папка не найдена. Создал новую: {0}. Перехожу к работе с файлами.", folderPath);
-                Console.WriteLine();
             }
         }
     }

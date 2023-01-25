@@ -1,5 +1,5 @@
 ﻿
-namespace ElectronicArchive
+namespace ElectronicArchive.Models
 {
     public class Agreement
     {
